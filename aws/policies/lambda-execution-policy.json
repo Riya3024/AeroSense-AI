@@ -1,0 +1,26 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "WriteOwnLogs",
+      "Effect": "Allow",
+      "Action": ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"],
+      "Resource": "arn:aws:logs:ap-south-1:<ACCOUNT_ID>:log-group:/aws/lambda/aerosense-*:*"
+    },
+    {
+      "Sid": "ReadModelAndProcessedData",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject"],
+      "Resource": [
+        "arn:aws:s3:::<BUCKET>/aerosense/models/*",
+        "arn:aws:s3:::<BUCKET>/aerosense/processed/*"
+      ]
+    },
+    {
+      "Sid": "InvokeAeroSenseEndpoint",
+      "Effect": "Allow",
+      "Action": ["sagemaker:InvokeEndpoint"],
+      "Resource": "arn:aws:sagemaker:ap-south-1:<ACCOUNT_ID>:endpoint/aerosense-*"
+    }
+  ]
+}
